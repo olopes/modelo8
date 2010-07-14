@@ -1,0 +1,13 @@
+Modelo8 - Auxiliar do livro Modelo 8
+
+Esta aplicacao simples serve para o apoio e organizacao do livro Modelo 8.
+Actualmente permite registar e listar recibos Modelo 6 (recibos verdes).
+Ainda nao sao registados valores do IVA.
+
+Espero vir a ter tempo para criar uma interface nativa mais amigavel e vir
+a complementar com outros aspectos legais actualmente em falta nesta aplicacao.
+Podera obter uma copia da licenca em: http://www.gnu.org/licenses/gpl.html
+
+Podera obter uma copia do codigo fonte em:
+ http://sourceforge.net/projects/modelo8
+
