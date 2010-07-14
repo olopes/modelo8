@@ -1,6 +1,6 @@
 *
 *   main.prg -- Main procedure and database creation
-*   Copyright (C) 2010 Oscar Lopes
+*   Copyright (C) 2010 Oscar Lopes <psicover.dev@gmail.com>
 *
 *   This file is part of Modelo8.
 *
@@ -29,14 +29,10 @@ RETURN
 
 PROC PrintDisclaimer()
 
-? "Modelo8  Copyright (C) 2010  Oscar Lopes"
-? "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'."
-? "This is free software, and you are welcome to redistribute it"
-? "under certain conditions; type `show c' for details."
+? "Modelo 8 - ", R_NAME_VERSION  
+? "Copyright (C) 2010  Oscar Lopes <psicover.dev@gmail.com>"
+? "This software comes with ABSOLUTELY NO WARRANTY."
 
-* Sleep for 1 second
-INKEY(2)
-CLEAR SCREEN
 RETURN
 
 

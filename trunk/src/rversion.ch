@@ -1,6 +1,6 @@
 *
 *   rversion.ch -- Version strings
-*   Copyright (C) 2010 Oscar Lopes
+*   Copyright (C) 2010 Oscar Lopes <psicover.dev@gmail.com>
 *
 *   This file is part of Modelo8.
 *
@@ -21,7 +21,7 @@
 #ifndef _RVERSION_CH
 #define _RVERSION_CH
 
-#define R_VERSION "2.0"
+#define R_VERSION "1.0-beta"
 
 #define R_NAME_VERSION ("Auxiliar do Livro de Registos Modelo 8 (v."+R_VERSION+")")
 
