@@ -26,7 +26,7 @@ static getlist := {}
 proc imprime()
   local meses := { "Janeiro", "Fevereiro", "Mar‡o", "Abril", "Maio",;
                    "Junho", "Julho", "Agosto", "Setembro", "Outubro",;
-                   "Novembro", "Dezembro", "Resumo Mensal"}
+                   "Novembro", "Dezembro" /*, "Resumo Mensal"*/}
   local ok := .F., perg, IouE, p, linhaB, Acumulado, lanc, pag, imposto
 
   clear screen

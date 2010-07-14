@@ -20,6 +20,7 @@
 
 #include "inkey.ch"
 #include "box.ch"
+#include "rversion.ch"
 
 PROC MAIN
 PrintDisclaimer()
@@ -29,7 +30,7 @@ RETURN
 
 PROC PrintDisclaimer()
 
-? "Modelo 8 - ", R_NAME_VERSION  
+? "Modelo 8 - ", R_NAME_VERSION 
 ? "Copyright (C) 2010  Oscar Lopes <psicover.dev@gmail.com>"
 ? "This software comes with ABSOLUTELY NO WARRANTY."
 
@@ -58,7 +59,7 @@ PROC OpenDB()
     DBUSEAREA(.T., "DBFNTX", "config.dbf", "CONFIG")
     * USE CONFIG NEW
     APPEND BLANK
-    REPLACE BELL WITH 1
+    REPLACE BELL WITH 0
     REPLACE EPOCH WITH 1990
     CLOSE CONFIG
   END
@@ -114,7 +115,7 @@ PROC OpenDB()
   DBUSEAREA(.T., "DBFNTX", "contrib.dbf", "CONTRIB")
   *USE CONTRIB NEW
   GOTO 1
-  dbname=LEFT(CONTRIB->NIF,8)
+  dbname=ALLTRIM(LEFT(CONTRIB->NIF,8))
   IF !FILE(dbname+".dbf")  && criar a BD de recibos
     estrutura := {}
     ? "Aguarde enquanto eu crio uma nova base de dados..."
