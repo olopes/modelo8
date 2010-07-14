@@ -11,3 +11,18 @@ Podera obter uma copia da licenca em: http://www.gnu.org/licenses/gpl.html
 Podera obter uma copia do codigo fonte em:
  http://sourceforge.net/projects/modelo8
 
+Nota: A versao inicial desta aplicacao foi concebida para correr em DOS. Alguns
+destes ficheiros estao codificados em Code Page 860 (Portugues). 
+Por este motivo optei por usar a emulacao de consola GTWVT (windows) e 
+GTXVT (linux e mac os x) para apresentar correctamente alguns caracteres 
+acentuados e bordas.
+Os ficheiros CP860 sao:
+  adiciona.prg
+  auxiliar.prg
+  edita.prg
+  imprime.prg
+  lstscr.prg
+
+Os restantes ficheiros estao codificados em ISO-8859-1 (Latin1).
+
+

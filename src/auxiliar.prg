@@ -1,6 +1,6 @@
 *
 *   auxiliar.prg -- Main menu screen
-*   Copyright (C) 2010 Oscar Lopes
+*   Copyright (C) 2010 Oscar Lopes <psicover.dev@gmail.com>
 *
 *   This file is part of Modelo8.
 *
@@ -80,7 +80,7 @@ CLEAR SCREEN
 
 ** desenhar as caixas...
 @ 1, 2,21,76 BOX B_SLICK
-@ 2,15 TO  4,64 DOUBLE
+@ 2,12 TO  4,67 DOUBLE
 @ 5, 4 TO  9,74 DOUBLE
 
 RETURN

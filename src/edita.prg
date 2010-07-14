@@ -1,6 +1,6 @@
 *
 *   edita.prg -- Basic editor for "Modelo 6" receipts 
-*   Copyright (C) 2010 Oscar Lopes
+*   Copyright (C) 2010 Oscar Lopes <psicover.dev@gmail.com>
 *
 *   This file is part of Modelo8.
 *
