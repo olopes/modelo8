@@ -7,8 +7,8 @@ CFILES =
 OBJFILES = $(CFILES:.c=.o) $(GENCFILES:.c=.o)
 HARBOURFLAGS = -a -m -w0 -n -q -i/harbour/include -i. -i/Users/oscar/opt/include
 CFLAGS = -I/harbour/include -Wall -I/Users/oscar/opt/include
-LFLAGS =-static -gtxwc -L/harbour/lib -L/d/HARBOUR/lib -L/Users/oscar/opt/lib -lpdf
-#LFLAGS =-static -gtwvt -L/harbour/lib -L/d/HARBOUR/lib -L/Users/oscar/opt/lib -lpdf
+#LFLAGS =-static -gtxwc -L/harbour/lib -L/d/HARBOUR/lib -L/Users/oscar/opt/lib -lpdf
+LFLAGS =-static -gtwvt -L/harbour/lib -L/d/HARBOUR/lib -L/Users/oscar/opt/lib -lpdf
 HRB = harbour
 LINKER = xhblnk
 ALLOBJ = $(OBJFILES)

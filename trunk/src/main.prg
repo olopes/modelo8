@@ -22,9 +22,23 @@
 #include "box.ch"
 
 PROC MAIN
+PrintDisclaimer()
 OpenDB()
 AUXILIAR()
 RETURN
+
+PROC PrintDisclaimer()
+
+? "Modelo8  Copyright (C) 2010  Oscar Lopes"
+? "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'."
+? "This is free software, and you are welcome to redistribute it"
+? "under certain conditions; type `show c' for details."
+
+* Sleep for 1 second
+INKEY(2)
+CLEAR SCREEN
+RETURN
+
 
 PROC OpenDB()
   LOCAL estrutura := {}
