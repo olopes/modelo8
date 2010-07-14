@@ -60,7 +60,7 @@ PROC Auxiliar
       CASE AX == 2
         EDITA()
       CASE AX == 3
-*        IMPRIME()
+        IMPRIME()
       CASE AX == 4
         REINDEX
       CASE AX == 5
@@ -72,7 +72,7 @@ RETURN
 
 PROC desenha_tela
 CLEAR SCREEN
-@  3,17 SAY R_NAME_VERSION
+@  3,14 SAY R_NAME_VERSION
 @  6, 5 SAY CONTRIB->NOME+"     NIF: "+CONTRIB->NIF
 @  7, 5 SAY CONTRIB->MORADA+"     R.F.(COD) "+CONTRIB->COD_RF
 @  8, 5 SAY CONTRIB->DSC_ACT+"     C¢digo:  "+CONTRIB->COD_ACT
@@ -80,7 +80,7 @@ CLEAR SCREEN
 
 ** desenhar as caixas...
 @ 1, 2,21,76 BOX B_SLICK
-@ 2,12 TO  4,67 DOUBLE
+@ 2,11 TO  4,67 DOUBLE
 @ 5, 4 TO  9,74 DOUBLE
 
 RETURN
