@@ -1,0 +1,10 @@
+TODO - Complete and Translate
+
+Pre-requisites:
+- Harbour 2.0.0 or later
+- Windows, Linux or Darwin (Mac OS X)
+
+Build:
+# cd src
+# hbmk2 modelo8.hbp
+# ./modelo8

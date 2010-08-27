@@ -1,0 +1,11 @@
+#
+# $Id: modelo8.hbc $
+#
+
+incpaths=.
+libs=hbhpdf libhpdf libpng hbct
+{win}gt=gtwvt
+{linux|darwin}gt=gtxwc
+prgflag={win}-D_MK_WIN_ {linux}-D_MK_LINUX_ {darwin}-D_MK_DARWIN_
+cflag={win}-D_MK_WIN_ {linux}-D_MK_LINUX_ {darwin}-D_MK_DARWIN_
+

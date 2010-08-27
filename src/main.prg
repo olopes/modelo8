@@ -22,11 +22,11 @@
 #include "box.ch"
 #include "rversion.ch"
 
-PROC MAIN
+FUNC MAIN
 PrintDisclaimer()
 OpenDB()
 AUXILIAR()
-RETURN
+RETURN (NIL)
 
 PROC PrintDisclaimer()
 
@@ -64,12 +64,12 @@ PROC OpenDB()
     CLOSE CONFIG
   END
   IF !file("contrib.dbf")  && se estes ficheiros nao existem, cria novos
-    RNOME=PADRIGHT("",50," ")
-    RNIF=PADRIGHT("",9," ")
-    RMORA=PADRIGHT("",50," ")
-    RRF=PADRIGHT("",4," ")
-    RDAE=PADRIGHT("",50," ")
-    RCAE=PADRIGHT("",5," ")
+    RNOME=PADR("",50," ")
+    RNIF=PADR("",9," ")
+    RMORA=PADR("",50," ")
+    RRF=PADR("",4," ")
+    RDAE=PADR("",50," ")
+    RCAE=PADR("",5," ")
 
     @  5,10 SAY "Informa‡„o do contribuinte"
     @  9, 1 SAY "Nome:      " GET RNOME

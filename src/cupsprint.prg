@@ -1,5 +1,5 @@
 *
-*   winprint.prg -- Print to windows printer
+*   cupsprint.prg -- Print to cups printer
 *   Copyright (C) 2010 Oscar Lopes <psicover.dev@gmail.com>
 *
 *   This file is part of Modelo8.
@@ -25,7 +25,15 @@
 #define FORM_A4 9
 #define PS_SOLID 0
 
+
+* TODO 
+* Escolher impressora
+* Gerar PDF
+* Enviar para impressora
+
 function printPrinter(perg,mes850)
+? "CUPS printing not implemented"
+/*
   local ok := .F., p, linhaB, Acumulado, lanc, pag, imposto
   local aPrn := GetPrinters()
   local nPrn := 1
@@ -37,7 +45,7 @@ function printPrinter(perg,mes850)
                    "Novembro", "Dezembro"}
   local mes := meses[perg]
 
-  /* Seleccao da impressoa */
+  /* Seleccao da impressoa * /
   @ 11,1 CLEAR TO 23,61
   @ 11,1 TO 23,61
   * @ 11,1,23,61 BOX B_SINGLE
@@ -112,5 +120,6 @@ RETURN(NIL)
 function PLINE(oPrinter,msg)
   oPrinter:SetPrc(oPrinter:Prow()+01, 8 )
   oPrinter:TextOut(msg)
+*/
 return (NIL)
 
