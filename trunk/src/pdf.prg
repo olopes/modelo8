@@ -18,10 +18,9 @@
 *   along with Modelo8.  If not, see <http://www.gnu.org/licenses/>.
 *
 
-#include "pdf.ch"
-#include "pdfhbdoc.ch"
+* #include "hbvpdf.ch"
 
-function sendToPdf(perg,mes860)
+function sendToPdf(perg,mes860,outp)
 
   local meses := { "Janeiro", "Fevereiro", "Março", "Abril", "Maio",;
                    "Junho", "Julho", "Agosto", "Setembro", "Outubro",;
@@ -43,6 +42,10 @@ local lines := { ;
   "       LANC.            RECIBO                   VALOR        RETENCAO", ;
   "        Nº.      Nº.            DATA             BRUTO           IRS" ;
 }
+  PRIVATE pdf
+  PRIVATE page
+  PRIVATE pdfName
+
 
 cFile3 := "rpt_"+meses_abr[perg]+".pdf"
 PdfNew(cFile3,10,a4_height,a4_width,80,40,,)
@@ -81,9 +84,50 @@ lines:={}
 
 return NIL
 
-***********************************************************************************
-***************INICIO DA FUNCAO DE ABRIR ARQUIVOS**********************************
-***********************************************************************************
+* wrappers para contornar a api de PDF
+function PdfNew(fname)
+   if pdf == NIL
+
+     pdfName := fname
+     pdf := HPDF_New()
+     if pdf == NIL
+       alert( " Pdf could not been created!" )
+       return (nil)
+     endif
+  
+     * do extra config
+
+   endif
+return (nil)
+
+function PdfStartPage( aLines , bNew )
+   if pdf == NIL
+      return (nil)
+   endif
+return (nil)
+
+function PdfDrawPage( aLines , bNew )
+   if pdf == NIL
+      return (nil)
+   endif
+return (nil)
+
+function PdfEndPage( )
+   if pdf == NIL
+      return (nil)
+   endif
+return (nil)
+
+function PdfEnd( )
+   if pdf == NIL
+      return (nil)
+   endif
+return (nil)
+
+
+********************************************************************************
+***************INICIO DA FUNCAO DE ABRIR ARQUIVOS*******************************
+********************************************************************************
 // Open help file with associated viewer application
 FUNCTION OpenFile( cHelpFile )
    LOCAL nRet, cPath, cFileName, cFileExt
@@ -93,6 +137,7 @@ RETURN nRet
 
 #pragma BEGINDUMP
    #include <hbapi.h>
+#ifdef _WIN32_
    #pragma comment( lib, "shell32.lib" )
    #include <windows.h>
 
@@ -105,6 +150,14 @@ RETURN nRet
      hb_retnl( (LONG) hInst );
      return;
    }
+#else
+   HB_FUNC( _OPENHELPFILE )
+   {
+     hb_retnl( (LONG) 0 );
+     return;
+   }
+
+#endif
 #pragma ENDDUMP
 ********************************************************************************
 ***************FIM DA FUNCAO DE ABRIR ARQUIVOS**********************************

@@ -1,0 +1,22 @@
+#
+# id and stuff
+#
+
+-static
+-a
+-m
+-w0
+-n
+-q
+-omodelo8
+
+main.prg
+adiciona.prg
+auxiliar.prg
+edita.prg
+imprime.prg
+pdf.prg
+{win}winprint.prg
+{linux|darwin}cupsprint.prg
+lstscr.prg
+nifs.prg

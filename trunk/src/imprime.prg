@@ -56,7 +56,7 @@ proc imprime()
   IF IouE == "P"
     sendToPdf(perg, meses[perg])
   ELSEIF IouE == "I"
-    printWindows(perg, meses[perg])
+    printPrinter(perg, meses[perg])
   ELSEIF IouE == "E"
     listScr(perg, meses[perg])
   ENDIF
