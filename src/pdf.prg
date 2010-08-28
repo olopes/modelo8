@@ -20,7 +20,7 @@
 
 * #include "hbvpdf.ch"
 
-function sendToPdf(perg,mes860,outp)
+function sendToPdf(perg,mes860,cFile3)
 
   local meses := { "Janeiro", "Fevereiro", "Março", "Abril", "Maio",;
                    "Junho", "Julho", "Agosto", "Setembro", "Outubro",;
@@ -42,13 +42,12 @@ local lines := { ;
   "       LANC.            RECIBO                   VALOR        RETENCAO", ;
   "        Nº.      Nº.            DATA             BRUTO           IRS" ;
 }
-  PRIVATE pdf
-  PRIVATE page
-  PRIVATE pdfName
 
+if cFile3 == NIL
+   cFile3 := "rpt_"+meses_abr[perg]+".pdf"
+endif
 
-cFile3 := "rpt_"+meses_abr[perg]+".pdf"
-PdfNew(cFile3,10,a4_height,a4_width,80,40,,)
+PdfNew()
 PdfStartPage( lines , .T. )
 
 lines:={}
@@ -78,51 +77,12 @@ lines:={}
   aadd(lines, "")
   PdfDrawPage( lines )
   PdfEndPage()
-  PdfEnd()
+  PdfEnd(cFile3)
   
   OpenFile(cFile3)
 
 return NIL
 
-* wrappers para contornar a api de PDF
-function PdfNew(fname)
-   if pdf == NIL
-
-     pdfName := fname
-     pdf := HPDF_New()
-     if pdf == NIL
-       alert( " Pdf could not been created!" )
-       return (nil)
-     endif
-  
-     * do extra config
-
-   endif
-return (nil)
-
-function PdfStartPage( aLines , bNew )
-   if pdf == NIL
-      return (nil)
-   endif
-return (nil)
-
-function PdfDrawPage( aLines , bNew )
-   if pdf == NIL
-      return (nil)
-   endif
-return (nil)
-
-function PdfEndPage( )
-   if pdf == NIL
-      return (nil)
-   endif
-return (nil)
-
-function PdfEnd( )
-   if pdf == NIL
-      return (nil)
-   endif
-return (nil)
 
 
 ********************************************************************************

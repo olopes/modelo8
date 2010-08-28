@@ -16,6 +16,7 @@ auxiliar.prg
 edita.prg
 imprime.prg
 pdf.prg
+pdfapi.prg
 {win}winprint.prg
 {linux|darwin}cupsprint.prg
 lstscr.prg
