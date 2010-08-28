@@ -18,6 +18,8 @@
 *   along with Modelo8.  If not, see <http://www.gnu.org/licenses/>.
 *
 
+#include "harupdf.ch"
+
 STATIC hdPdf := NIL
 STATIC hpPage := NIL
 
@@ -45,11 +47,13 @@ function PdfStartPage( aLines , bNew )
 
    hpPage := HPDF_AddPage(hdPdf)
    HPDF_Page_SetSize(hpPage, HPDF_PAGE_SIZE_A4, HPDF_PAGE_PORTRAIT)
-   def_font := HPDF_GetFont(hdPdf, "Courier",)
+   def_font := HPDF_GetFont(hdPdf, "Courier", "CP1252" )
    HPDF_Page_SetFontAndSize(hpPage, def_font, 10)
-   HPDF_Page_SetTextLeading(hpPage,20)
+   * HPDF_Page_SetTextLeading(hpPage,20)
    height = HPDF_Page_GetHeight (hpPage)
 
+   HPDF_Page_BeginText(hpPage)
+   HPDF_Page_MoveTextPos( hpPage, 50, height - 50 )
    if aLines <> NIL
      PdfDrawPage( aLines, bNew)
    endif
@@ -57,19 +61,24 @@ function PdfStartPage( aLines , bNew )
 return (nil)
 
 function PdfDrawPage( aLines , bNew )
+   Local i
    if hdPdf == NIL
       return (nil)
    endif
 
-   HPDF_Page_BeginText(hpPage)
-   AEVAL(aLines, { | line | HPDF_Page_TextOut(hpPage, line) })
-
-   HPDF_Page_EndText( hpPage )
+   for i := 1 to len(aLines)
+      HPDF_Page_ShowText(hpPage, aLines[i])
+      HPDF_Page_MoveTextPos(hpPage, 0, -12)
+   next
    
 return (nil)
 
 function PdfEndPage( )
-page := nil
+   if hpPage == nil
+     return nil
+   endif
+   HPDF_Page_EndText( hpPage )
+   hpPage := nil
 return (nil)
 
 function PdfEnd( fName )
