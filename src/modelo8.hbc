@@ -3,7 +3,7 @@
 #
 
 incpaths=.
-libs=hbhpdf libhpdf libpng hbct
+libs=hbhpdf libhpdf libpng hbct {win}hbwin
 {win}gt=gtwvt
 {linux|darwin}gt=gtxwc
 prgflag={win}-D_MK_WIN_ {linux}-D_MK_LINUX_ {darwin}-D_MK_DARWIN_
