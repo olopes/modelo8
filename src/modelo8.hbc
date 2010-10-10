@@ -2,10 +2,31 @@
 # $Id: modelo8.hbc $
 #
 
+# paths
 incpaths=.
-libs=hbhpdf libhpdf libpng hbct {win}hbwin
+libpaths=include
+libpaths=lib
+libpaths=harbour/lib
+
+# libs
+libs=hbhpdf
+libs=libhpdf
+libs=libpng
+libs=hbct
+{win}libs=hbwin
+
+# specific parameters
 {win}gt=gtwvt
 {linux|darwin}gt=gtxwc
-prgflag={win}-D_MK_WIN_ {linux}-D_MK_LINUX_ {darwin}-D_MK_DARWIN_
-cflag={win}-D_MK_WIN_ {linux}-D_MK_LINUX_ {darwin}-D_MK_DARWIN_
+
+{win}prgflags=-D_MK_WIN_
+{linux}prgflags=-D_MK_LINUX_
+{darwin}prgflags=-D_MK_DARWIN_
+
+{win}cflags=-D_MK_WIN_
+{linux}cflags=-D_MK_LINUX_
+{darwin}cflags=-D_MK_DARWIN_
+
+# don't know why, but libs are not being resolved correctly
+#ldflags=/usr/local/lib/harbour/liblibhpdf.a /usr/local/lib/harbour/libhbhpdf.a /usr/local/lib/harbour/liblibpng.a
 
