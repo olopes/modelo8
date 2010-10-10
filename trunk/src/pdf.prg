@@ -31,9 +31,9 @@ function sendToPdf(perg,mes860,cFile3)
   local mes := meses[perg]
 
 local lines := { ;
-  "      AUXILIAR AO LIVRO DE REGISTO MODELO 8", ;
+  "           AUXILIAR AO LIVRO DE REGISTO MODELO 8", ;
   "", ;
-  "               Relação dos recibos MODELO 6 do mês de " + mes, ;
+  "                  Relação dos recibos MODELO 6 do mês de " + mes, ;
   "", ;
   CONTRIB->NOME                                 +"    NIF "+CONTRIB->NIF, ;
   CONTRIB->MORADA                               +"   R.F.(COD) "+CONTRIB->COD_RF, ;
