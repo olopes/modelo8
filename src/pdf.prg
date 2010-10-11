@@ -42,9 +42,11 @@ local lines := { ;
   "       LANC.            RECIBO                   VALOR        RETENCAO", ;
   "        Nº.      Nº.            DATA             BRUTO           IRS" ;
 }
+  local cFileProvided := .F.
 
 if cFile3 == NIL
    cFile3 := "rpt_"+meses_abr[perg]+".pdf"
+   cFileProvided := .T.
 endif
 
 PdfNew()
@@ -79,8 +81,9 @@ lines:={}
   PdfEndPage()
   PdfEnd(cFile3)
   
-  OpenFile(cFile3)
-
+  IF .NOT. cFileProvided
+    OpenFile(cFile3)
+  ENDIF
 return NIL
 
 
