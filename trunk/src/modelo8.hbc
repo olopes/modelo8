@@ -14,6 +14,7 @@ libs=libhpdf
 libs=libpng
 libs=hbct
 {win}libs=hbwin
+{linux|darwin}libs=cups
 
 # specific parameters
 {win}gt=gtwvt
