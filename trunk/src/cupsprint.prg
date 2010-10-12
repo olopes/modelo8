@@ -28,30 +28,42 @@
 
 * TODO 
 * Escolher impressora
-* Gerar PDF
-* Enviar para impressora
 
 function printPrinter(perg,mes860)
   LOCAL fname
   LOCAL defPrinter
-  LOCAL prns
-  LOCAL i
+  LOCAL aPrn
+  LOCAL nPrn 
+  LOCAL jobId
 
-  prns := CUPS_GET_DESTS()
+  aPrn := CUPS_GET_DESTS()
+  nPrn := 1
+
+  @ 11,1 CLEAR TO 23,61
+  @ 11,1 TO 23,61
+  * @ 11,1,23,61 BOX B_SINGLE
+  nPrn := ACHOICE(12,2,22,60,aPrn,.T.,,nPrn)
+  IF EMPTY(nPrn) 
+        return (nil)
+  ENDIF
+  
+  oPrinter := aPrn[nPrn]
 
   * Criar temp file
-#ifdef _MK_WIN_
-  fname := CURDIR()+"\print.pdf"
-#else
   fname := "/"+CURDIR()+"/print.pdf"
-#endif
-  ? fname
-? ""
 
   sendToPdf(perg,mes860,fname)
-  cups_print_file("nil",fname)
+  jobId := cups_print_file(oPrinter,fname)
   ferase(fname)
 
+  @ 11,1 CLEAR TO 23,61
+  IF jobId = 0
+    @ 12,3 SAY "Erro no envio do pedido de impressao."
+    @ 13,3 SAY "Erro: " + ALLTRIM(STR(CUPS_LAST_ERROR())) + "; " + CUPS_LAST_ERROR_STRING()
+  ELSE
+    @ 12,3 SAY "Impressao em curso com o ID: " + ALLTRIM(STR(jobId))
+  ENDIF
+  ? ""
 RETURN(NIL)
 
 
@@ -62,23 +74,31 @@ RETURN(NIL)
 #include <hbapiitm.h>
 #include <stdio.h>
 
+HB_FUNC (CUPS_LAST_ERROR) {
+  hb_retnl( (LONG) cupsLastError() );
+  return;
+}
+
+HB_FUNC (CUPS_LAST_ERROR_STRING) {
+  /*hb_retc( cupsLastErrorString() ); */
+  hb_retc( ippErrorString ( cupsLastError() ) );
+  return;
+}
+
 HB_FUNC( CUPS_PRINT_FILE ) {
   char * sPrinter;
   char * sFile;
-  const char * sDefaultPrinter;
   int num_dests;
   cups_dest_t *dest, *dests;
-  int i;
+  int i, jobId = 0;
   int num_options = 0;
   cups_option_t *options = NULL;
-
 
   sPrinter = (char*)hb_parc( 1 );
   sFile = (char*)hb_parc( 2 );
 
   num_dests = cupsGetDests(&dests);
-  sDefaultPrinter = cupsGetDefault();
-  dest = cupsGetDest(sDefaultPrinter, NULL, num_dests, dests);
+  dest = cupsGetDest(sPrinter, NULL, num_dests, dests);
   for (i = 0; i < dest->num_options; i ++)
     num_options = cupsAddOption(dest->options[i].name, dest->options[i].value,
                                 num_options, &options);
@@ -86,13 +106,14 @@ HB_FUNC( CUPS_PRINT_FILE ) {
   printf("Def printer: %s %p\n", dest->name, dest->name);
   printf("File: '%s'\n", sFile);
 
-  cupsPrintFile(dest->name, sFile, "Modelo 8", num_options, options);
+  jobId = cupsPrintFile(dest->name, sFile, "Modelo 8", num_options, options);
 
+  printf("Print job num: %d\n", jobId);
 
   cupsFreeOptions(num_options, options);
   cupsFreeDests(num_dests, dests);
 
-  hb_retnl( 0 );
+  hb_retnl( jobId );
   return;
 }
 

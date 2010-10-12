@@ -28,14 +28,6 @@ OpenDB()
 AUXILIAR()
 RETURN (NIL)
 
-PROC PrintDisclaimer()
-
-? "Modelo 8 - ", R_NAME_VERSION 
-? "Copyright (C) 2010  Oscar Lopes <psicover.dev@gmail.com>"
-? "This software comes with ABSOLUTELY NO WARRANTY."
-
-RETURN
-
 
 PROC OpenDB()
   LOCAL estrutura := {}
@@ -144,3 +136,15 @@ PROC OpenDB()
   GOTO 1
   SELECT RECIBOS
 RETURN
+
+#pragma BEGINDUMP
+#include <stdio.h>
+
+HB_FUNC(PRINTDISCLAIMER) {
+  printf("Modelo 8\n"); 
+  printf("Copyright (C) 2010  Oscar Lopes <psicover.dev@gmail.com>\n");
+  printf("This software comes with ABSOLUTELY NO WARRANTY.\n");
+}
+
+#pragma ENDDUMP
+
