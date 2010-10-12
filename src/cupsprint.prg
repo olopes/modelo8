@@ -34,43 +34,89 @@
 function printPrinter(perg,mes860)
   LOCAL fname
   LOCAL defPrinter
+  LOCAL prns
+  LOCAL i
+
+  prns := CUPS_GET_DESTS()
 
   * Criar temp file
-  fname := "./print.pdf"
-  sendToPdf(perg,mes860,fname)
+#ifdef _MK_WIN_
+  fname := CURDIR()+"\print.pdf"
+#else
+  fname := "/"+CURDIR()+"/print.pdf"
+#endif
+  ? fname
+? ""
 
-  sendPdfToPrinter(fname);
+  sendToPdf(perg,mes860,fname)
+  cups_print_file("nil",fname)
+  ferase(fname)
 
 RETURN(NIL)
 
 
-FUNCTION sendPdfToPrinter( cFile )
-   LOCAL cPath, cFileName, cFileExt
-   HB_FNameSplit( cFile, @cPath, @cFileName, @cFileExt )
-   _SendCups( cPath, cFile )
-RETURN (NIL) 
 
 #pragma BEGINDUMP
 #include <cups/cups.h>
 #include <hbapi.h>
+#include <hbapiitm.h>
 #include <stdio.h>
 
-HB_FUNC( _SENDCUPS ) {
-  char * sPath;
+HB_FUNC( CUPS_PRINT_FILE ) {
+  char * sPrinter;
   char * sFile;
   const char * sDefaultPrinter;
+  int num_dests;
+  cups_dest_t *dest, *dests;
+  int i;
+  int num_options = 0;
+  cups_option_t *options = NULL;
 
-  sPath = (char*)hb_parc( 1 );
+
+  sPrinter = (char*)hb_parc( 1 );
   sFile = (char*)hb_parc( 2 );
 
-  /* sDefaultPrinter = cupsGetDefault(); */
-  sDefaultPrinter = "FilePrinter";
-  printf("Def printer: %s %p\n", sDefaultPrinter, sDefaultPrinter);
-  printf("File: %s; Path: %s\n", sFile, sPath);
+  num_dests = cupsGetDests(&dests);
+  sDefaultPrinter = cupsGetDefault();
+  dest = cupsGetDest(sDefaultPrinter, NULL, num_dests, dests);
+  for (i = 0; i < dest->num_options; i ++)
+    num_options = cupsAddOption(dest->options[i].name, dest->options[i].value,
+                                num_options, &options);
 
-  cupsPrintFile(sDefaultPrinter, sFile, "Modelo 8", 0, NULL);
+  printf("Def printer: %s %p\n", dest->name, dest->name);
+  printf("File: '%s'\n", sFile);
+
+  cupsPrintFile(dest->name, sFile, "Modelo 8", num_options, options);
+
+
+  cupsFreeOptions(num_options, options);
+  cupsFreeDests(num_dests, dests);
+
   hb_retnl( 0 );
   return;
+}
+
+HB_FUNC( CUPS_GET_DESTS ) {
+  cups_dest_t *dest = NULL;
+  cups_dest_t *dests = NULL;
+  int num_dests = 0, i;
+  PHB_ITEM pDir, pElem;
+
+  pDir = hb_itemArrayNew( 0 );
+  num_dests = cupsGetDests(&dests);
+
+  if (num_dests > 0) {
+    pElem = hb_itemNew( NULL ); 
+    for(i=0, dest=dests; i < num_dests; i++,dest++) {
+      hb_itemPutC   ( pElem, dest->name );
+      hb_arrayAddForward( pDir, pElem );
+    }
+
+    hb_itemRelease( pElem );
+  }
+  cupsFreeDests(num_dests, dests);
+  hb_itemReturnRelease( pDir );
+
 }
 #pragma ENDDUMP
 
