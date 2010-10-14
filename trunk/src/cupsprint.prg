@@ -98,7 +98,16 @@ HB_FUNC( CUPS_PRINT_FILE ) {
   sFile = (char*)hb_parc( 2 );
 
   num_dests = cupsGetDests(&dests);
+  if(num_dests == 0) {
+    hb_retnl( 0 );
+    return;
+  }
   dest = cupsGetDest(sPrinter, NULL, num_dests, dests);
+  if (dest == NULL) {
+    cupsFreeDests(num_dests, dests);
+    hb_retnl( 0 );
+    return;
+  }
   for (i = 0; i < dest->num_options; i ++)
     num_options = cupsAddOption(dest->options[i].name, dest->options[i].value,
                                 num_options, &options);
