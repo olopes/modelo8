@@ -8,3 +8,10 @@ Build:
 # cd src
 # hbmk2 modelo8.hbp
 # ./modelo8
+
+Tested on:
+Windows, intel P4 32 bit, mingw and Visual C++ 2008 Express
+Linux (Ubuntu 10.4), intel P4 32 bit, gcc 4.??
+Mac OS X, 32bit G4, gcc 4.?? (XCode 3)
+
+Please note that Mac OS X must have X11 installed.

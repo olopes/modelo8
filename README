@@ -1,3 +1,7 @@
+===============================================================================
+README - PT
+===============================================================================
+
 Modelo8 - Auxiliar do livro Modelo 8
 
 Esta aplicacao simples serve para o apoio e organizacao do livro Modelo 8.
@@ -26,3 +30,37 @@ Os ficheiros CP860 sao:
 Os restantes ficheiros estao codificados em ISO-8859-1 (Latin1).
 
 
+===============================================================================
+README - EN
+===============================================================================
+
+Modelo8 - Auxiliar do livro Modelo 8
+
+This is a simple helper application to organize a Modelo 8 book (plese refer to
+portuguese taxes). Currently only allow the registration of Modelo 6 receipts.
+This is not yet complete and is not fully compliant. 
+IVA is not implemented yet.
+
+I plan to build a friendlier interface and implement all missing aspects of
+portuguese tax laws and requirements.
+
+This application is licensed under GPLv3 (or newer). You can find a copy of
+this license under the following URL: http://www.gnu.org/licenses/gpl.html
+
+Source code is available at:
+ http://sourceforge.net/projects/modelo8
+
+Note: The initial version of this application was conceived to run under DOS.
+Some of these files are encoded with Code Page 860 (Portugues).
+For this reason I choosed to use an emulated console GTWVT (windows) and GTXVT
+(linux and mac os X) in order to display some characters correctly. This was
+not possible with a native console interface (CLI).
+
+The following files are CP860 encoded:
+  adiciona.prg
+  auxiliar.prg
+  edita.prg
+  imprime.prg
+  lstscr.prg
+
+All the others use ISO-8859-1 (Latin1) character encoding.
