@@ -42,11 +42,14 @@ local lines := { ;
   "       LANC.            RECIBO                   VALOR        RETENCAO", ;
   "        Nº.      Nº.            DATA             BRUTO           IRS" ;
 }
-  local cFileProvided := .F.
+  local bShowFile := .F.
 
 if cFile3 == NIL
    cFile3 := "rpt_"+meses_abr[perg]+".pdf"
-   cFileProvided := .T.
+#ifdef _MK_DARWIN_
+   cFile3:="/"+CURDIR()+"/"+cFile3
+#endif
+   bShowFile := .T.
 endif
 
 PdfNew()
@@ -81,7 +84,7 @@ lines:={}
   PdfEndPage()
   PdfEnd(cFile3)
   
-  IF .NOT. cFileProvided
+  IF bShowFile = .T.
     OpenFile(cFile3)
   ENDIF
 return NIL
@@ -100,8 +103,8 @@ RETURN nRet
 
 #pragma BEGINDUMP
    #include <hbapi.h>
-#ifdef _WIN32_
-   #pragma comment( lib, "shell32.lib" )
+#ifdef _MK_WIN_
+   /* (sharpsign) pragma comment( lib, "shell32.lib" ) */
    #include <windows.h>
 
    HB_FUNC( _OPENHELPFILE )
@@ -113,6 +116,30 @@ RETURN nRet
      hb_retnl( (LONG) hInst );
      return;
    }
+
+#else
+#ifdef _MK_DARWIN_
+#include <ApplicationServices/ApplicationServices.h>
+#include <stdio.h>
+
+   HB_FUNC( _OPENHELPFILE )
+   {
+    FSRef inRef;
+    OSStatus status;
+    UInt8 *path, *parent;
+    
+    parent = (UInt8*) hb_parc( 1 );
+    path = (UInt8*) hb_parc( 2 );
+    /* printf("File is: '%s'\n", path); */
+    status = FSPathMakeRef(path,&inRef,NULL);
+    /* printf("Status: %d\n", (int)status); */
+    status = LSOpenFSRef(&inRef,NULL);
+    /* printf("Status: %d\n", (int)status); */
+
+     hb_retnl( (LONG) status );
+     return;
+   }
+
 #else
    HB_FUNC( _OPENHELPFILE )
    {
@@ -120,6 +147,7 @@ RETURN nRet
      return;
    }
 
+#endif
 #endif
 #pragma ENDDUMP
 ********************************************************************************

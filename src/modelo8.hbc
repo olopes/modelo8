@@ -30,4 +30,6 @@ libs=hbct
 
 # don't know why, but libs are not being resolved correctly
 #ldflags=/usr/local/lib/harbour/liblibhpdf.a /usr/local/lib/harbour/libhbhpdf.a /usr/local/lib/harbour/liblibpng.a
+#{darwin}ldflags=-framework CoreServices
+{darwin}ldflags=-framework ApplicationServices
 
