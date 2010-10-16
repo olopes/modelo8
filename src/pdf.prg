@@ -102,8 +102,12 @@ FUNCTION OpenFile( cHelpFile )
 RETURN nRet
 
 #pragma BEGINDUMP
-   #include <hbapi.h>
-#ifdef _MK_WIN_
+
+#include <hbapi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#if defined( _MK_WIN_ )
    /* (sharpsign) pragma comment( lib, "shell32.lib" ) */
    #include <windows.h>
 
@@ -117,10 +121,8 @@ RETURN nRet
      return;
    }
 
-#else
-#ifdef _MK_DARWIN_
+#elif defined( _MK_DARWIN_ )
 #include <ApplicationServices/ApplicationServices.h>
-#include <stdio.h>
 
    HB_FUNC( _OPENHELPFILE )
    {
@@ -141,13 +143,32 @@ RETURN nRet
    }
 
 #else
+#include <unistd.h>
    HB_FUNC( _OPENHELPFILE )
    {
-     hb_retnl( (LONG) 0 );
+     int pid;
+     char *sFile, sCmd;
+
+     sFile = hb_parc(2);
+
+     sCmd = (char*) malloc(20+strlen(sFile));
+     sprintnf(sCmd, "xdg-open \"%s\"", sFile);
+     printf("executing: %s\n", sCmd);
+     pid = system(sCmd);
+     
+/* Atempt to use the Unix way */
+/*
+     pid= fork();
+     if(pid == 0) {
+       pid = execlp("xdg-open",file, NULL);
+       exit(0);
+     }
+*/
+
+     hb_retnl( (LONG) pid );
      return;
    }
 
-#endif
 #endif
 #pragma ENDDUMP
 ********************************************************************************
